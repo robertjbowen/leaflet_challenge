@@ -1,10 +1,10 @@
 // Create tile layer
-var baseMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-  tileSize: 512,
+var baseMap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  //tileSize: 512,
   maxZoom: 18,
-  zoomOffset: -1,
-  id: "mapbox/streets-v11",
+  //zoomOffset: -1,
+  id: "light-v10",
   accessToken: API_KEY
 });
 
@@ -13,18 +13,19 @@ var layers = {
   earthquakes: new L.LayerGroup(),
   tectonicPlates: new L.LayerGroup()
 };
+console.log(layers.earthquakes);
 
 // Creating map object
 var myMap = L.map("mapid", {
-  center: [40.7, -73.95],
-  zoom: 11,
+  center: [0,0], //40.7, -73.95],
+  zoom: 5,
   layers: [
     layers.earthquakes,
     layers.tectonicPlates,
   ]
 });
 
-// Add our 'lightmap' tile layer to the map
+// Add tile layer to the map
 baseMap.addTo(myMap);
 
 // Create an overlays object to add to the layer control
@@ -72,22 +73,23 @@ d3.json(url, function(response) {
     // Capture the location coordinates and magnatude information for each event
     var geometry = features[i].geometry;
     console.log(geometry.coordinates);
-    var magnatude = features[i].properties;
-    console.log(magnatude.mag);
+    var properties = features[i].properties;
+    console.log(properties.mag);
 
     // Create a new marker with the appropriate size, color, and coordinates
     var newMarker = L.marker([geometry.coordinates[1], geometry.coordinates[0]], {
       color: geometry.coordinates[2],
-      radius: magnatude.mag
+      radius: properties.mag
     });
     console.log(newMarker);
 
-    /*  // Add the new marker to the appropriate layer
-    newMarker.addTo(layers[stationStatusCode]);
+    // Add the new marker to the appropriate layer
+    newMarker.addTo(layers.earthquakes);
+    console.log(layers.earthquakes);
 
-      // Bind a popup to the marker that will  display on click. This will be rendered as HTML
-      newMarker.bindPopup(station.name + "<br> Capacity: " + station.capacity + "<br>" + station.num_bikes_available + " Bikes Available");
-    */
+    // Bind a popup to the marker that will  display on click. This will be rendered as HTML
+    newMarker.bindPopup("Earthquake ID: " + geometry.id + "<br> Magnatude: " + properties.mag + "<br> Lat: "+ geometry.coordinates[1] + "<br> Lng: "+ geometry.coordinates[0]);
+    
    /* // Check for location property
     if (location) {
 
@@ -99,6 +101,6 @@ d3.json(url, function(response) {
   }
 
   // Add our marker cluster layer to the map
-  myMap.addLayer(markers);
+  //myMap.addLayer(markers);
 
 });
