@@ -11,7 +11,6 @@ var layers = {
   earthquakes: new L.LayerGroup(),
   tectonicPlates: new L.LayerGroup()
 };
-console.log(layers.earthquakes);
 
 // Create map object to insert at div id 'mapid'
 var myMap = L.map("mapid", {
@@ -42,11 +41,25 @@ var mapLegend = L.control({
 
 // When the layer control is added, insert a div with the class of "legend"
 mapLegend.onAdd = function() {
-  var div = L.DomUtil.create("div", "legend");
+  var div = L.DomUtil.create("div", "info legend"),
+  depths = [-10,10,30,50,70,90];
+  for (var i = 0; i < depths.length; i++) {
+    div.innerHTML += '<i style= "background:' + colorLegend(depths[i] + 1) + '"></i>' + depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+');
+  }
   return div;
 };
+
 // Add the legend to the map
 mapLegend.addTo(myMap);
+
+function colorLegend (d) {
+  return d < 10 ? "lightgreen" :
+  d < 30 ? "green" :
+  d < 50 ? "steelblue" :
+  d < 70 ? "blue" :
+  d < 90 ? "orange" :
+  "red";
+}
 
 // Store API query variables
 var baseURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0";
@@ -61,7 +74,6 @@ var url = baseURL + method + parameters;
 d3.json(url, function(response) {
   var features = response.features
   console.log(features);
-  console.log(features.length);
 
   // Loop through data
   for (var i = 0; i < features.length; i++) {  
@@ -72,27 +84,8 @@ d3.json(url, function(response) {
     var properties = features[i].properties;
     console.log(properties.mag);
     
-    var markerColor;
-
-    if (geometry.coordinates[2] < 10) {
-      markerColor = "lightgreen";
-    }
-    else if (geometry.coordinates[2] >= 10 && geometry.coordinates[2] < 30) {
-      markerColor = "green";
-    } 
-    else if (geometry.coordinates[2] >= 30 && geometry.coordinates[2] < 50) {
-      markerColor = "steelblue";
-    } 
-    else if (geometry.coordinates[2] >= 50 && geometry.coordinates[2] < 70) {
-      markerColor = "blue";
-    } 
-    else if (geometry.coordinates[2] >= 70 && geometry.coordinates[2] < 90) {
-      markerColor = "orange";
-    }
-    else {
-      markerColor = "red";
-    } 
-
+    var markerColor = colorLegend(geometry.coordinates[2]);
+    
     // Create a new marker with the appropriate size, color, and coordinates
     var newMarker = L.circle([geometry.coordinates[1], geometry.coordinates[0]], {
       color: 'green',
@@ -108,5 +101,5 @@ d3.json(url, function(response) {
 
     // Bind a popup to the marker that will display on click. 
     newMarker.bindPopup("Earthquake ID: " + features[i].id + "<br> Magnatude: " + properties.mag + "<br> Lat: "+ geometry.coordinates[1] + "<br> Lng: "+ geometry.coordinates[0] + "<br> Depth: "+ geometry.coordinates[2]);
-  }
+  }  
 });
