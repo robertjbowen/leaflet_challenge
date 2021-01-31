@@ -28,7 +28,7 @@ baseMap.addTo(myMap);
 // Create overlays object to allow user layer control
 var overlays = {
   "EarthQuakes": layers.earthquakes,
-  "Techtonic Plates": layers.tectonicPlates
+  "Tectonic Plates": layers.tectonicPlates
 };
 
 // Create an overlay controler for the layers, add the overlay controler to the map
