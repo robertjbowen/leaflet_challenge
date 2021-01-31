@@ -79,7 +79,7 @@ The application begins by importing the map tile sets from mapbox.com to be rend
 </p>  
 
 <p>
-    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture13.png"/> <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture15.png"/>
+     <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture15.png"/>
     <br>
     <em>Display output of overlay controller closed and open</em>
 </p> 
