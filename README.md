@@ -4,7 +4,7 @@
 ## Link: https://robertjbowen.github.io/leaflet_challenge/Leaflet-Step-2/
 
 <p>
-    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture12.png"/><img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture15.png"/>
+    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture12.png"/>
     <br>
     <em>Display Output of Interactive Map with Earthquake Overlay</em>
 </p> 
