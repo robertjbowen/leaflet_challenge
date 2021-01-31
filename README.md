@@ -93,9 +93,15 @@ The application begins by importing the map tile sets from mapbox.com to be rend
 </p>  
 
 <p>
-    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture7.png"/><img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture14.png"/>
+    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture7.png"/>
     <br>
-    <em>colorLegend function to define color scale and Display output of the map legend</em>
+    <em>colorLegend function to define color scale</em>
+</p> 
+
+<p>
+    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture14.png"/>
+    <br>
+    <em>Display Output of the Map Legend</em>
 </p> 
 
 6. With the map format initialized, the app now imports the data to be displayed. The app begins by defining the URL and query parameters to import earthquake data from the USGS.gov API. The geoJSON data is imported using D3.json. The app steps through each event in the data and extracts the latitude, longitude, and depth geometry coordiantes as well as the magnatude property value, date, and the event id. A markerColor is determined using the colorLegend function based on the depth value of the event. A new circular marker is created and assigned the lat and long coordinates for its center and its radius is defined by the magnatude value of the event multiplied by 10,000 to make them large enough to see clearly. opacity is set at 50% to allow the map to still be visible through the markers. Each marker is added the earthquakes layergroup for display. Finally, a popup is defined for each marker to show key data about the event when the user clicks on the icon.
@@ -107,13 +113,13 @@ The application begins by importing the map tile sets from mapbox.com to be rend
 </p>  
 
 <p>
-    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture11.png"/><img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture15.png"/>
+    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture11.png"/>
     <br>
     <em>Display output of initial icons layer</em>
 </p> 
 
 <p>
-    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture16.png"/><img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture15.png"/>
+    <img src="https://github.com/robertjbowen/leaflet_challenge/blob/main/images/Picture16.png"/>
     <br>
     <em>Display output showing popup data card for a selected event</em>
 </p> 
